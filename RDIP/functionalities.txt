@@ -1,0 +1,26 @@
+/*-------------------------------------------------------------------------------------------------
+
+FUNCTIONALITIES FOR FORMING THE SENTENCES LAB
+
+1.LANGUAGE SELECTION : A drop down select menu to select any language from "English" or "Hindi"
+
+2.DISPLAY MESSAGE : Message "Form a sentence (Declarative or Interrogative or any other type) from the given words
+(select the buttons in proper order)" to be displayed.
+
+3.DISPLAY JUMBLED TEXT : A complex sentence with each word represented in a button and order being jumbled
+
+**additional functionality :: Button to display a different sentence
+
+4.REMOVE BUTTONS : Remove the button once selected and add the text to the current correct sentence textarea
+
+5.DISPLAY SELECTED BUTTONS : Display the text in the sequence they are selected.
+
+6.CHECK : Check whether the given the sequence of words is correct or not.If correct display success message "Right Answer" else display failure message "Wrong Answer" and activate the button "Get correct answer"
+
+7.GET THE ANSWER : Show the correct answer if the current answer is wrong & change the button to hide the answer
+
+8.HIDE THE ANSWER : Hide the correct answer and change the button to get the correct answer
+
+9.RESET : Reset the buttons at any point of time in execution.
+
+----------------------------------------------------------------------------------------------------*/
