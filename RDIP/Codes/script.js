@@ -34,7 +34,7 @@ hindi = [["राम और श्याम बाजार गयें","र�
 ["एक बड़ी सी किताब वहाँ है","एक बड़ी सी किताब है वहाँ","बड़ी सी एक किताब वहाँ है","बड़ी सी एक किताब है वहाँ",
 "वहाँ है एक बड़ी सी किताब","वहाँ है बड़ी सी एक किताब","है वहाँ एक बड़ी सी किताब","है वहाँ बड़ी सी एक किताब"]]
 
-
+//global state
 /*---------------------select language -------------------------------------------
 ----------------------------------------------------------------------------------*/
 
@@ -45,6 +45,10 @@ function getOption(lang)
 		$('#sub-heading-1').html("");
 		$('#sub-heading-2').html("");
 		$('#button-container').html("");
+		$('#formed-sentence').html("");
+		$('#sub-heading-3').css("display","none");
+  		$('#re-form').css("display","none");
+
 		alert("Select a language");
 
 	}
@@ -84,7 +88,9 @@ String.prototype.shuffle = function () {
 /*---------------create clickable buttons ----------------------------------------
 ----------------------------------------------------------------------------------*/
 
+var inputString;
 function createButtons(input) {  
+   inputString = input;
    var button_container = document.getElementById("button-container"); 
    var input_arr = input.split(" ");
    var length =  input_arr.length;
@@ -93,7 +99,38 @@ function createButtons(input) {
    	var button = document.createElement('BUTTON');  
    	var text = document.createTextNode(input_arr[i]); 
    	button.appendChild(text); 
+   	button.id = "button-"+(i+1);
    	button_container.appendChild(button);
    	button_container.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
 	}
+	button_container.addEventListener("click", buttonClick);
+}
+/*---------------Event handler for input buttons ----------------------------------------
+----------------------------------------------------------------------------------*/
+function buttonClick(e){
+  // check if the clicked element is a button
+  $('#sub-heading-3').css("display","inline");
+  $('#re-form').css("display","inline");
+  if (e.target.tagName.toLowerCase() == "button") {
+
+  	var target = e.target;
+    var btn_id = target.id;
+  	var text_container = document.getElementById("formed-sentence");
+  	text_container.appendChild(target.lastChild);
+  	text_container.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
+    var elem = document.getElementById(btn_id);
+    elem.parentNode.removeChild(elem);
+  }
+
+}
+/*---------------Event handler for reform button ------------------------------------
+----------------------------------------------------------------------------------*/
+
+function reformButtonClick()
+{
+	$('#button-container').html("");
+	createButtons(inputString);
+	$('#formed-sentence').html("");
+	$('#sub-heading-3').css("display","none");
+  	$('#re-form').css("display","none");
 }
