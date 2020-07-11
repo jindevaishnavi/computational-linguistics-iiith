@@ -89,6 +89,7 @@ String.prototype.shuffle = function () {
 ----------------------------------------------------------------------------------*/
 
 var inputString;
+var outputString = "";
 function createButtons(input) {  
    inputString = input;
    var button_container = document.getElementById("button-container"); 
@@ -100,6 +101,7 @@ function createButtons(input) {
    	var text = document.createTextNode(input_arr[i]); 
    	button.appendChild(text); 
    	button.id = "button-"+(i+1);
+   	button.value = input_arr[i];
    	button_container.appendChild(button);
    	button_container.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
 	}
@@ -117,20 +119,27 @@ function buttonClick(e){
     var btn_id = target.id;
   	var text_container = document.getElementById("formed-sentence");
   	text_container.appendChild(target.lastChild);
+  	//var text_id = target.lastChild.id;
+  	outputString +=(target.value) + " ";
   	text_container.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
     var elem = document.getElementById(btn_id);
     elem.parentNode.removeChild(elem);
   }
-
+if ( $('#button-container').children().length == 0 ) {
+	$('#check-correct').css("display","inline");
+	outputString = outputString.trim();
+}
 }
 /*---------------Event handler for reform button ------------------------------------
 ----------------------------------------------------------------------------------*/
 
 function reformButtonClick()
-{
+{ 	//remove the current buttons and refresh
 	$('#button-container').html("");
 	createButtons(inputString);
 	$('#formed-sentence').html("");
 	$('#sub-heading-3').css("display","none");
   	$('#re-form').css("display","none");
+  	$('#check-correct').css("display","none");
+  	outputString = "";
 }
