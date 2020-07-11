@@ -35,9 +35,13 @@ hindi = [["राम और श्याम बाजार गयें","र�
 "वहाँ है एक बड़ी सी किताब","वहाँ है बड़ी सी एक किताब","है वहाँ एक बड़ी सी किताब","है वहाँ बड़ी सी एक किताब"]]
 
 //global state
+var index,language;
+var inputString;
+var outputString = "";
 /*---------------------select language -------------------------------------------
 ----------------------------------------------------------------------------------*/
- var index,language;
+
+
 function getOption(lang)
 {
 	initialize();
@@ -79,6 +83,8 @@ function initialize()
   		$('#right').css("display","none");
   		$('#get-correct').css("display","none");
   		$('#check-correct').css("display","none");
+  		$('#correct-sentences').css("display","none");
+  		$("#get-correct-btn").html("Get the correct sentence");
 }
 
 
@@ -100,9 +106,6 @@ String.prototype.shuffle = function () {
 
 /*---------------create clickable buttons ----------------------------------------
 ----------------------------------------------------------------------------------*/
-
-var inputString;
-var outputString = "";
 function createButtons(input) {  
    inputString = input;
    var button_container = document.getElementById("button-container"); 
@@ -155,6 +158,7 @@ if(language[index].includes(outputString))
 		{
 			$('#wrong').css("display","inline");
 			$('#get-correct').css("display","inline");
+			$("#get-correct-btn").html("Get the correct sentence");
 		}
 }
 /*---------------Event handler for reform button ------------------------------------
@@ -178,5 +182,47 @@ function initializeReform()
   	$('#wrong').css("display","none");
   	$('#right').css("display","none");
   	$('#get-correct').css("display","none");
+  	$('#correct-sentences').css("display","none");
+  	$("#get-correct-btn").html("Get the correct sentence");
   	outputString = "";
+}
+function getCorrect()
+{
+
+	var text_container = document.getElementById("correct-sentences");
+	if(text_container.style.display == "none")
+	{
+		text_container.style.display = "inline";
+		var length = language[index].length;
+		var correct_answers = language[index];
+		for(i = 0;i<length;i++)
+		{
+			createTextElement(correct_answers[i],i);
+		}
+		document.getElementById("get-correct-btn").innerHTML = "Hide the correct sentence";
+	}
+	else
+	{
+		document.getElementById("get-correct-btn").innerHTML = "Get Answers";
+		removeTextElement();
+		text_container.style.display = "none";
+	}
+
+}
+function removeTextElement()
+{
+	var ele = document.getElementById("correct-sentences");
+        var child = ele.lastElementChild;  
+        while (child) { 
+            ele.removeChild(child); 
+            child = ele.lastElementChild; 
+        } 
+}
+function createTextElement(input,index)
+{
+	var text_container = document.getElementById("correct-sentences"); 
+	var paragraph = document.createElement("P");
+	paragraph.id = "ans-"+index;
+	paragraph.innerText = input;
+	text_container.appendChild(paragraph);
 }
