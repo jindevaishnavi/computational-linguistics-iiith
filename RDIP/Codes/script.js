@@ -77,6 +77,7 @@ function initialize()
   		$('#re-form').css("display","none");
   		$('#wrong').css("display","none");
   		$('#right').css("display","none");
+  		$('#get-correct').css("display","none");
   		$('#check-correct').css("display","none");
 }
 
@@ -151,20 +152,31 @@ function checkAnswer()
 if(language[index].includes(outputString))
 		$('#right').css("display","inline");
 	else
-		$('#wrong').css("display","inline");
+		{
+			$('#wrong').css("display","inline");
+			$('#get-correct').css("display","inline");
+		}
 }
 /*---------------Event handler for reform button ------------------------------------
 ----------------------------------------------------------------------------------*/
 
 function reformButtonClick()
 { 	//remove the current buttons and refresh
-	$('#button-container').html("");
+	initializeReform();	
 	createButtons(inputString);
+}
+/*---------------Initialize for reform button ------------------------------------
+----------------------------------------------------------------------------------*/
+
+function initializeReform()
+{
+	$('#button-container').html("");
 	$('#formed-sentence').html("");
 	$('#sub-heading-3').css("display","none");
   	$('#re-form').css("display","none");
   	$('#check-correct').css("display","none");
   	$('#wrong').css("display","none");
   	$('#right').css("display","none");
+  	$('#get-correct').css("display","none");
   	outputString = "";
 }
