@@ -186,6 +186,10 @@ function initializeReform()
   	$("#get-correct-btn").html("Get the correct sentence");
   	outputString = "";
 }
+
+/*---------------Get the correct answers -----------------------------------------
+----------------------------------------------------------------------------------*/
+
 function getCorrect()
 {
 
@@ -209,6 +213,9 @@ function getCorrect()
 	}
 
 }
+
+/*---------------Remove the answer elements ----------------------------------------
+----------------------------------------------------------------------------------*/
 function removeTextElement()
 {
 	var ele = document.getElementById("correct-sentences");
@@ -218,6 +225,9 @@ function removeTextElement()
             child = ele.lastElementChild; 
         } 
 }
+/*---------------Create the answer elements ----------------------------------------
+----------------------------------------------------------------------------------*/
+
 function createTextElement(input,index)
 {
 	var text_container = document.getElementById("correct-sentences"); 
