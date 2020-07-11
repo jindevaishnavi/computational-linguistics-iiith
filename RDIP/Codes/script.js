@@ -37,18 +37,13 @@ hindi = [["राम और श्याम बाजार गयें","र�
 //global state
 /*---------------------select language -------------------------------------------
 ----------------------------------------------------------------------------------*/
-
+ var index,language;
 function getOption(lang)
 {
+	initialize();
 	if(lang=="null")
 	{
-		$('#sub-heading-1').html("");
-		$('#sub-heading-2').html("");
-		$('#button-container').html("");
-		$('#formed-sentence').html("");
-		$('#sub-heading-3').css("display","none");
-  		$('#re-form').css("display","none");
-
+		
 		alert("Select a language");
 
 	}
@@ -57,17 +52,34 @@ function getOption(lang)
 		$('#sub-heading-1').html("<div><br/><br/><b>Form a  sentence (Declarative or Interrogative or any other type) from the given words </b></div>");
 		$('#sub-heading-2').html("<div><b><i>(select the buttons in proper order) </i></b><br/><br/></div>"); 
 		$('#button-container').html("");
-		let language;
+		
 		if(lang == "english")
 			language = english;
 		else
 			language = hindi;
 		let length = language.length;
-		let index = Math.floor(Math.random() * length);
+		index = Math.floor(Math.random() * length);
 		jumbled_string = language[index][0].shuffle();
 		createButtons(jumbled_string);
 	}
 }
+
+/*----------------intialize() : intialize the state------------------ ------------
+----------------------------------------------------------------------------------*/
+
+function initialize()
+{
+		$('#sub-heading-1').html("");
+		$('#sub-heading-2').html("");
+		$('#button-container').html("");
+		$('#formed-sentence').html("");
+		$('#sub-heading-3').css("display","none");
+  		$('#re-form').css("display","none");
+  		$('#wrong').css("display","none");
+  		$('#right').css("display","none");
+  		$('#check-correct').css("display","none");
+}
+
 
 /*----------------shuffle() : given a string input shuffles the words ------------
 ----------------------------------------------------------------------------------*/
@@ -119,7 +131,6 @@ function buttonClick(e){
     var btn_id = target.id;
   	var text_container = document.getElementById("formed-sentence");
   	text_container.appendChild(target.lastChild);
-  	//var text_id = target.lastChild.id;
   	outputString +=(target.value) + " ";
   	text_container.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
     var elem = document.getElementById(btn_id);
@@ -128,7 +139,19 @@ function buttonClick(e){
 if ( $('#button-container').children().length == 0 ) {
 	$('#check-correct').css("display","inline");
 	outputString = outputString.trim();
+	
 }
+}
+
+/*---------------Event handler for check answer -----------------------------------
+----------------------------------------------------------------------------------*/
+
+function checkAnswer()
+{
+if(language[index].includes(outputString))
+		$('#right').css("display","inline");
+	else
+		$('#wrong').css("display","inline");
 }
 /*---------------Event handler for reform button ------------------------------------
 ----------------------------------------------------------------------------------*/
@@ -141,5 +164,7 @@ function reformButtonClick()
 	$('#sub-heading-3').css("display","none");
   	$('#re-form').css("display","none");
   	$('#check-correct').css("display","none");
+  	$('#wrong').css("display","none");
+  	$('#right').css("display","none");
   	outputString = "";
 }
