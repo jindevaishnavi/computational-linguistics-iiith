@@ -1,3 +1,6 @@
+
+/*---------------------ENGLISH STRING CORPUS--------------------------------------
+----------------------------------------------------------------------------------*/
 english = [["John ate an apple before afternoon","before afternoon John ate an apple","John before afternoon ate an apple"],
 ["some students like to study in the night","at night some students like to study"],
 ["John and Mary went to church","Mary and John went to church"],
@@ -14,6 +17,10 @@ english = [["John ate an apple before afternoon","before afternoon John ate an a
 ["I told her that I bought a book yesterday","I told her yesterday that I bought a book",
 "yesterday I told her that I bought a book","I bought a book that I told her yesterday",
 "I bought a book yesterday that I told her","yesterday I bought a book that I told her"]]
+
+/*---------------------HINDI STRING CORPUS----------------------------------------
+----------------------------------------------------------------------------------*/
+
 hindi = [["राम और श्याम बाजार गयें","राम और श्याम गयें बाजार","बाजार गयें राम और श्याम","गयें बाजार राम और श्याम"],
 ["राम सोया और श्याम भी","श्याम सोया और राम भी","सोया श्याम और राम भी","सोया राम और श्याम भी"],
 ["मैंने उसे बताया कि राम सो रहा है","मैंने उसे बताया कि सो रहा है राम","उसे मैंने बताया कि राम सो रहा है","उसे मैंने बताया कि सो रहा है राम",
@@ -26,16 +33,67 @@ hindi = [["राम और श्याम बाजार गयें","र�
 ["एक लाल किताब वहाँ है","एक लाल किताब है वहाँ","वहाँ है एक लाल किताब","है वहाँ एक लाल किताब"],
 ["एक बड़ी सी किताब वहाँ है","एक बड़ी सी किताब है वहाँ","बड़ी सी एक किताब वहाँ है","बड़ी सी एक किताब है वहाँ",
 "वहाँ है एक बड़ी सी किताब","वहाँ है बड़ी सी एक किताब","है वहाँ एक बड़ी सी किताब","है वहाँ बड़ी सी एक किताब"]]
+
+
+/*---------------------select language -------------------------------------------
+----------------------------------------------------------------------------------*/
+
 function getOption(lang)
 {
-if(lang=="null")
-{
-	$('#sub-heading-1').html("");
-	alert("Select a language");
+	if(lang=="null")
+	{
+		$('#sub-heading-1').html("");
+		$('#sub-heading-2').html("");
+		$('#button-container').html("");
+		alert("Select a language");
 
+	}
+	else
+	{
+		$('#sub-heading-1').html("<div><br/><br/><b>Form a  sentence (Declarative or Interrogative or any other type) from the given words </b></div>");
+		$('#sub-heading-2').html("<div><b><i>(select the buttons in proper order) </i></b><br/><br/></div>"); 
+		$('#button-container').html("");
+		let language;
+		if(lang == "english")
+			language = english;
+		else
+			language = hindi;
+		let length = language.length;
+		let index = Math.floor(Math.random() * length);
+		jumbled_string = language[index][0].shuffle();
+		createButtons(jumbled_string);
+	}
 }
-else
-{
-	$('#sub-heading-1').html("<div style='color:#0000AA;font-size:16px'><br/><br/><b>Form a  sentence (Declarative or Interrogative or any other type) from the given words </b></div><div style='color:#0000FF;font-size:14px' <b><i>(select the buttons in proper order) </i></b><br/><br/></div>"); 
-}
+
+/*----------------shuffle() : given a string input shuffles the words ------------
+----------------------------------------------------------------------------------*/
+
+String.prototype.shuffle = function () {
+
+    var a = this.split(" ");
+    var n = a.length;
+    for(var i = n - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = a[i];
+        a[i] = a[j];
+        a[j] = tmp;
+    }
+    return a.join(" ");
+};
+
+/*---------------create clickable buttons ----------------------------------------
+----------------------------------------------------------------------------------*/
+
+function createButtons(input) {  
+   var button_container = document.getElementById("button-container"); 
+   var input_arr = input.split(" ");
+   var length =  input_arr.length;
+   for(i = 0;i< length;i++)
+   {
+   	var button = document.createElement('BUTTON');  
+   	var text = document.createTextNode(input_arr[i]); 
+   	button.appendChild(text); 
+   	button_container.appendChild(button);
+   	button_container.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
+	}
 }
