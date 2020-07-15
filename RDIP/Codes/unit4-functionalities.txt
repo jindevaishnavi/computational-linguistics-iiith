@@ -1,0 +1,19 @@
+Functionalities :
+ 
+ 1.DROPDOWN : A select menu to select the corpus from corpus1, corpus2 or corpus3
+ 
+ 2.DISPLAYING CORPUS & MESSAGE : The selected corpus is displayed on the screen along with the message with "Enter the number of tokens and types for the above corpus: " 
+ 
+ 3.DISPLAYING TABLE :A table with two rows and columns to display the result.Column 1 has "#tokens: " 
+ and "#types: ",Column2 must enable the user to enter the number of token & types corresponding to the corpus selected.
+ 
+ 4.SUBMIT BUTTON & ANSWER MESSAGE : Submit button on click must validate the entered no of token and types and if wrong answer then change the color of the table column 2 to red and display "Wrong Answer" or if right answer then change the colr of the table column 2 to green and right answer.
+ 
+ 5.CONTINUE BUTTON : If the entered answer is correct then display a button "continue" and on clicking hide the above submit button and answer message.
+ 
+ 6.DISPLAY TABLE & MESSAGE : On continue button, display a new table with one row,two col with one cell as "#new types: " and another as an input field.
+ A message "Now, consider all the tokens with the same 'root' word to be of the same type. Recalculate the number of types." and display submit button.
+
+ 7.SUBMIT BUTTON : Submit on click should run the snowball stemming algorithm and validate the results of the new type with the user input. 
+ If wrong : Change the column 2 to red color and display "Wrong answer"
+ If correct  :  Change the column 1 to green color and display "Right answer"
