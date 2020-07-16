@@ -1,4 +1,4 @@
-corpus = [
+const corpus = [
 `A mouse was having a very bad time. She could find no food at all. She looked here and there, 
 but there was no food, and she grew very thin. At last the mouse found a basket, full of corn. 
 There was a small hole in the basket, and she crept in. She could just get through the hole.
@@ -27,7 +27,7 @@ Then it tried to jump on to its master's knee. The master thought the donkey was
 and they drove it back to the field. "I only did what the dog does," said the donkey,"
  and yet they make a pet of the dog, and they beat me with sticks. It is not fair.`]
  /*GLOBAL STATE*/
- var index;
+let index;
 
  function selectCorpus(value)
  {
@@ -36,11 +36,15 @@ and they drove it back to the field. "I only did what the dog does," said the do
  	{
  		alert("Select a corpus ");
  		$('#corpus').hide();
+ 		$('#table-1').css("display","none");
+ 		$('#input-msg').css("display","none");
  	}
  	else
  	 {
  	 	$("#corpus").empty();
- 	 	$('#corpus').show();
+ 	 	$("#corpus").show();
+ 	 	$('#table-1').css("display","inline");
  	 	$("#corpus").html(corpus[index]);
+ 	 	$('#input-msg').css("display","inline");
  	 }
  }
