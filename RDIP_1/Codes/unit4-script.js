@@ -47,7 +47,6 @@ const selectCorpus = value =>
 	 	str = corpus[index]
 	 	correct_type = countUniqueWords(str);
 	 	correct_token = countWords(str);
-	 	console.log(correct_token + " " + correct_type);
 	 	$("#answer").css("display","inline");
 	 	if(correct_token == tokens && correct_type == type)
 	 	{
@@ -83,9 +82,9 @@ $('#continue').click(function()
 
 $('#submit-ans2').click(function() 
 {
+	console.log("reached");
 	str = corpus[index];
 	str = str.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ");
-	console.log(str);
 	str = str.split(' ');
 	for(i = 0;i<str.length;i++)
 	{
@@ -96,9 +95,23 @@ $('#submit-ans2').click(function()
 			str[i] = find(str[i]);
 	}
 	str = str.join(' ');
-	console.log(str);
 	count_unique = countUniqueWords(str);
-	console.log(count_unique);
+	user_words = $('#newtypesCount').val();
+		$("#answer-2").css("display","inline")
+	if(count_unique == user_words)
+	{
+		$("#answer-2").css("color","green");
+		$('#newtypesCount').css("background-color","green");
+	 	$("#answer-2").text("Right Answer !");
+	}
+	else
+	{
+		$("#answer-2").css("color","red");
+		$('#newtypesCount').css("background-color","red");
+	 	$("#answer-2").text("Wrong Answer !");
+	 	
+	}
+	
 });
 
 
@@ -112,11 +125,14 @@ function intialize()
  		$('#input-msg').css("display","none");
  		$('#submit-ans').css("display","none");
  		$("#answer").css("display","none");
+ 		$("#answer-2").css("display","none");
  		$("#continue").css("display","none");
  		$('#tokenCount').val("");
 		$('#typesCount').val("");
+		$('#newtypesCount').val("");
 		$('#tokenCount').css("background-color","white");
 		$('#typesCount').css("background-color","white");
+		$('#newtypesCount').css("background-color","white");
 		$("#continue").css("display","none");
 		$("#input-msg2").css("display","none");
 		$('#table-2').css("display","none");
@@ -132,7 +148,6 @@ const countUniqueWords = (text) => {
     text.toLowerCase().replace(/\w+/g, word => words.add(word));
     size = words.size;
     words = [...words].join(' ');
-    console.log(words);
     return size;      
 
 };
@@ -146,7 +161,6 @@ const countWords = (str) => {
          str = str.replace(/\n /,"\n");
          str = str.replace(/[.,\/#!$%\^&"\*;:{}=\-_`~()]/g,"");
 		 str = str.replace(/\s{2,}/g," ");
-		 console.log(str);
          return str.split(' ').length;
       };
 /*----------------------------EXCEPTIONAL WORDS---------------------------------------------------
