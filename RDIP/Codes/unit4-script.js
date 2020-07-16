@@ -26,4 +26,21 @@ Then it tried to jump on to its master's knee. The master thought the donkey was
 "Help! Help!" Men came running in with sticks, and they beat the donkey till it ran out of the house, 
 and they drove it back to the field. "I only did what the dog does," said the donkey,"
  and yet they make a pet of the dog, and they beat me with sticks. It is not fair.`]
- 
+ /*GLOBAL STATE*/
+ var index;
+
+ function selectCorpus(value)
+ {
+ 	index = value -1;
+ 	if(index== -1)
+ 	{
+ 		alert("Select a corpus ");
+ 		$('#corpus').hide();
+ 	}
+ 	else
+ 	 {
+ 	 	$("#corpus").empty();
+ 	 	$('#corpus').show();
+ 	 	$("#corpus").html(corpus[index]);
+ 	 }
+ }

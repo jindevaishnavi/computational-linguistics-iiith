@@ -13,5 +13,20 @@
 </head>
 <body>
 	<div class="heading" id = "experiment-heading">EXPERIMENT : TOKENS AND TYPES</div>
+	<div id = "selectCorpus">
+		<form name = "selector" id = "selector">
+		<select name="corp_opt" id="corp_opt" autocomplete="off" onchange="selectCorpus(this.value)">
+	     	<option value="0" select="selected">---Select a corpus---</option>
+	     	<option value="1" select="selected">Corpus-1</option>
+	     	<option value="2" select="selected">Corpus-2</option>
+	     	<option value="3" select="selected">Corpus-3</option>
+		</select>
+		</form>
+	</div>
+	<div id = "corpusDiv">
+		<p id = "corpus">
+			
+		</p>
+	</div>
 </body>
 </html>
