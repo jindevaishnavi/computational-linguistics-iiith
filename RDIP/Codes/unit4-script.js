@@ -27,8 +27,10 @@ const selectCorpus = value =>
  	 	$('#submit-ans').css("display","inline");
  	 }
  }
+
  /*-----------------------------ONLOAD ----------------------------------------------------------------
  ------------------------------------------------------------------------------------------------------*/
+
  $(document).ready(function(){
  $('#submit-ans').click(function()
  	{
@@ -61,7 +63,18 @@ const selectCorpus = value =>
 	 	}
 	 }
 	 });
-	 
+
+
+$('#continue').click(function() 
+{
+	$("#submit-ans").css("display","none");
+	$("#answer").css("display","none");
+	$("#continue").css("display","none");
+	$("#input-msg2").css("display","inline");
+	$('#table-2').css("display","inline");
+	$("#submit-ans2").css("display","inline");
+
+});
 });
 /*-----------------------------INITIALIZE---------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------*/
@@ -79,17 +92,24 @@ function intialize()
 		$('#typesCount').css("background-color","white");
 
 }
+
+/*-----------------------------COUNT UNIQUE WORDS---------------------------------------------------
+----------------------------------------------------------------------------------------------------*/
+
 const countUniqueWords = (text) => {
     const words = new Set();
     text.toLowerCase().replace(/\w+/g, word => words.add(word));
    
     return words.size;        
 };
+
+/*-----------------------------COUNT TOTAL WORDS---------------------------------------------------
+----------------------------------------------------------------------------------------------------*/
+
 const countWords = (str) => {
          str = str.replace(/(^\s*)|(\s*$)/gi,"");
          str = str.replace(/[ ]{2,}/gi," ");
          str = str.replace(/\n /,"\n");
          return str.split(' ').length;
       };
- //console.log(`Total : ${countWords(corpus[index])} Unique : ${countUniqueWords(corpus[index])}`);
-
+ 
