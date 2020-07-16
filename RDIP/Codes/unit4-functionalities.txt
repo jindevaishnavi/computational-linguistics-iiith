@@ -1,3 +1,5 @@
+/*-------------------------------------------------------------------------------------------------
+
 Functionalities :
  
  1.DROPDOWN : A select menu to select the corpus from corpus1, corpus2 or corpus3
@@ -17,3 +19,5 @@ Functionalities :
  7.SUBMIT BUTTON : Submit on click should run the snowball stemming algorithm and validate the results of the new type with the user input. 
  If wrong : Change the column 2 to red color and display "Wrong answer"
  If correct  :  Change the column 1 to green color and display "Right answer"
+
+ ----------------------------------------------------------------------------------------------------*/
