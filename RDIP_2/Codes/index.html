@@ -4,20 +4,34 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content= "width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
-	<link rel="stylesheet" href="./unit3-style.css">	
+	<link rel="stylesheet" href="./style.css">	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<script src="./unit3-script.js"></script>
+	<script src="./script.js"></script>
 	<title>Computational Linguistics Lab</title>
 </head>
 <body>
 	<div class="heading" id = "experiment-heading">EXPERIMENT -3 : Tagging Parts of Speech(CL - 3)</div>
 	<div id = "selectLanguage" style="text-align: center;">
-		<select name="lang" autocomplete="off" onchange="getOption(this.value)"> 
+		<select name="lang" autocomplete="off" onchange="getLanguage(this.value)"> 
 			<option value="null">---Select Language---</option>
 			<option value="english">English</option>
 			<option value="hindi">Hindi</option>
 		</select>
+	</div>
+	<div class=" container-1" align=" center" style="margin-top: 20px">
+		<div id = "langDropdown"style="display: none; ">
+			
+			<select name="sentence" autocomplete="off" onchange="getSentence(this.value)">
+			<option value="null">---Select Sentence---</option>
+			<option value = "1" id = "op1"></option>
+			<option value = "2" id  = "op2"></option>
+			<option value = "3" id = "op3"></option>
+			<option value = "4" id = "op4"></option>
+			<option value = "5" id = "op5"></option>
+			</select>
+			
+		</div>
 	</div>
 </body>
 </html>
