@@ -36,6 +36,7 @@ function intialize()
 	$("#langDropdown").css("display","none");
 	$("#msg").css("display","none");
 	$("#table").css("display","none");
+	$("#button").css("display","none");
 }
 /*Intialize sentence dropdown*/
 
@@ -49,6 +50,7 @@ function dropdownInitialize()
 	}
 	$("#msg").css("display","none");
 	$("#table").css("display","none");
+	$("#button").css("display","none");
 }
 let sentence;
 /*GET SENTENCE*/
@@ -67,6 +69,7 @@ function getSentence(value)
 	parent = document.getElementById("table");
 	parent.removeChild(parent.lastChild);
 	createTable(sentence);
+	$("#button").css("display","inline");
 	}
 }
 /*------------------------------TABLE CREATION---------------------------------------------------

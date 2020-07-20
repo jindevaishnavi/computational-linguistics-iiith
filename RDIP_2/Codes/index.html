@@ -23,7 +23,7 @@
 		<div id = "langDropdown"style="display: none; ">
 			
 			<select name="sentence" autocomplete="off" onchange="getSentence(this.value)">
-			<option value="null">---Select Sentence---</option>
+			<option value="null" selected>---Select Sentence---</option>
 			<option value = "1" id = "op1"></option>
 			<option value = "2" id  = "op2"></option>
 			<option value = "3" id = "op3"></option>
@@ -39,6 +39,9 @@
 		</div>
 	</div>
 	<div id = "table" align="center" style="display: none">
+	</div>
+	<div id = "button"  class="btn btn-dark" style="display: none;" >
+		<center><button>Submit</button></center>
 	</div>
 </body>
 </html>
