@@ -1,12 +1,36 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 
+function checkPOSAnswer(sentence)
+{
+
+var pos = require('pos');
+var words = new pos.Lexer().lex(sentence);
+var tagger = new pos.Tagger();
+var taggedWords = tagger.tag(words);
+tags = "";
+for (i in taggedWords) {
+    var taggedWord = taggedWords[i];
+    var word = taggedWord[0];
+    var tag = taggedWord[1];
+    tags += tag + " ";
+
+}
+return tags;
+}
+window.checkPOSAnswer  = checkPOSAnswer;
+
+
 /*ENGLISH CORPUS*/
-english = ["The child liked the chocolate","She was stopped by the bravest knight",
+window.english = ["The child liked the chocolate","She was stopped by the bravest knight",
 "Mary baked a cake for his birthday","She decorated the cake carefully","Mary wore a dress with polka dots"]
 
 /*HINDI CORPUS*/
-hindi = ["राम ने सीता के लिए फल तोड़ा।","छोटे बच्चे पाठशाला जल्दी आयेंगे।"
+window.hindi = ["राम ने सीता के लिए फल तोड़ा।","छोटे बच्चे पाठशाला जल्दी आयेंगे।"
 ,"मेहनत का फल मीठा होता है।","वाह! वह खूबसूरत है।","पेड़ से पत्ते गिर गए।"]
+
+window.hindiAnswers = ["Noun Postposition Noun Postposition Postposition Noun Verb","Adjective Noun Noun Adverb Verb",
+"Noun Postposition Noun Adjective Verb Verb","Interjection Pronoun Adjective Verb",
+"Noun Postposition Noun Verb Verb"]
 
 /*----------------------------SELECT LANGUAGE ------------------------------------------------
 ----------------------------------------------------------------------------------------------*/
@@ -40,6 +64,7 @@ function intialize()
 	$("#msg").css("display","none");
 	$("#table").css("display","none");
 	$("#button").css("display","none");
+	$('#get_answer').css("display","none");
 }
 /*Intialize sentence dropdown*/
 window.intialize = intialize;
@@ -54,12 +79,15 @@ function dropdownInitialize()
 	$("#msg").css("display","none");
 	$("#table").css("display","none");
 	$("#button").css("display","none");
+	$('#get_answer').css("display","none");
 }
 let sentence;
 /*GET SENTENCE*/
 let sentenceID;
 let tags;
 window.dropdownInitialize = dropdownInitialize;
+window.tags = tags;
+window.sentenceID = sentenceID;
 function getSentence(value)
 {
 	if(value == "null")
@@ -154,8 +182,16 @@ window.createTable = createTable;
 
 function getTag(sentence)
 {
-	tags = checkPOSAnswer(sentence);
+	if(language == english)
+	{
+		tags = checkPOSAnswer(sentence);
 	console.log(tags);
+}
+	else
+
+	{
+		tags = hindiAnswers[sentenceID];
+	}
 }
 
 /*----------------ENGLISH DROPDOWN -----------------------------------------
@@ -255,6 +291,71 @@ function createDropDownHindi(cell,ind)
 }
 window.createDropDownHindi = createDropDownHindi;
 
+
+
+
+let toggle = "getAnswer";
+function getAnswer()
+{
+	t = document.getElementById('table-id');
+if(toggle == "getAnswer")
+{
+	
+			
+			
+	$("#getAnswer").html("Hide Answers");
+	for(i = 0;i<sentence.length;i++)
+	{	id = t.getElementsByTagName('tr')[i];
+		cells = id.getElementsByTagName('td')[3];
+		if(language == english)
+		text = document.createTextNode(getPOS(tags[i]));
+		else
+		text = document.createTextNode((tags[i]));
+		cells.appendChild(text);
+	}
+
+	toggle = "hideAnswer";
+}
+else
+{
+	$("#getAnswer").html("Get Answers");
+	toggle = "getAnswer";
+	for(i = 0;i<sentence.length;i++)
+	{
+		id = t.getElementsByTagName('tr')[i];
+		cells = id.getElementsByTagName('td')[3];
+		cells.innerHTML = "";
+			}
+}
+}
+
+window.getAnswer = getAnswer;
+
+function getPOS(tag)
+{
+if(tag.includes("NN"))
+	return "Noun";
+else if(tag.includes("PR"))
+	return "Pronoun";
+else if(tag.includes("VB"))
+	return "Verb";
+else if(tag.includes("JJ"))
+	return "Adjective";
+else if(tag.includes("RB"))
+	return "Adverb";
+else if(tag.includes("UH"))
+	return "Interjection";
+else if(tag.includes("IN"))
+	return "Preposition";
+else if(tag.includes("DT"))
+	return "Determiner";
+else if(tag.includes("CC"))
+	return "Conjuction";
+
+}
+window.getPOS = getPOS;
+
+
 function checkAnswer()
 {
 	
@@ -268,15 +369,36 @@ function checkAnswer()
 			cells = id.getElementsByTagName('td')[1];
 			select = cells.firstChild;
 			strUser = select.options[select.selectedIndex].value;
+			text = select.options[select.selectedIndex].text;
 			img = document.createElement("img");
 			img.width = "30";
 			img.height = "30";
-			if(tags[i].includes(strUser))
+			if(language  == english)
 			{
-				img.src = "right.png";
+				if(tags[i].includes(strUser))
+				{
+
+					img.src = "right.png";
+				}
+				else
+					{
+						img.src = "wrong.png";
+						$('#get_answer').css("display","inline");
+					}
 			}
-			else
-				img.src = "wrong.png";
+		    else
+		    {
+		    	if(tags[i].includes(text))
+				{
+
+					img.src = "right.png";
+				}
+				else
+					{
+						img.src = "wrong.png";
+						$('#get_answer').css("display","inline");
+					}
+		    }
 			cells = id.getElementsByTagName('td')[2];
 			cells.appendChild(img);
 
@@ -285,28 +407,7 @@ function checkAnswer()
 }
 window.checkAnswer = checkAnswer;
 
-},{}],2:[function(require,module,exports){
-
-
-function checkPOSAnswer(sentence)
-{
-
-var pos = require('pos');
-var words = new pos.Lexer().lex(sentence);
-var tagger = new pos.Tagger();
-var taggedWords = tagger.tag(words);
-tags = "";
-for (i in taggedWords) {
-    var taggedWord = taggedWords[i];
-    var word = taggedWord[0];
-    var tag = taggedWord[1];
-    tags += tag + " ";
-
-}
-return tags;
-}
-window.checkPOSAnswer  = checkPOSAnswer;
-},{"pos":5}],3:[function(require,module,exports){
+},{"pos":4}],2:[function(require,module,exports){
 /*
   Transformation rules for Brill's POS tagger
   Copyright (C) 2015 Hugo W.L. ter Doest
@@ -453,7 +554,7 @@ function rule8(taggedSentence, index) {
 }
 
 module.exports = BrillTransformationRules;
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /*!
  * jsPOS
  *
@@ -529,11 +630,11 @@ POSTagger.prototype.extendLexicon = function(lexicon) {
 
 // console.log(new POSTagger().tag(["i", "went", "to", "the", "store", "to", "buy", "5.2", "gallons", "of", "milk"]));
 
-},{"./BrillTransformationRules":3,"./lexicon":7}],5:[function(require,module,exports){
+},{"./BrillTransformationRules":2,"./lexicon":6}],4:[function(require,module,exports){
 exports.Tagger = require('./POSTagger');
 exports.Lexer = require('./lexer');
 
-},{"./POSTagger":4,"./lexer":6}],6:[function(require,module,exports){
+},{"./POSTagger":3,"./lexer":5}],5:[function(require,module,exports){
 /*!
  * jsPOS
  *
@@ -634,7 +735,7 @@ Lexer.prototype.lex = function(string){
 
 
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /*
  * Javascript version of Eric Brill's English lexicon.
  */ 
@@ -298464,4 +298565,4 @@ module.exports = {
     ]
 };
 
-},{}]},{},[1,2]);
+},{}]},{},[1]);

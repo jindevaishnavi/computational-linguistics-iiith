@@ -9,7 +9,6 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript"  src="../Libraries/require.js"></script>
 	<script src="./bundle.js"></script>
-
 	<title>Computational Linguistics Lab</title>
 </head>
 <body>
@@ -43,7 +42,11 @@
 	<div id = "table" align="center" style="display: none">
 	</div>
 	<div id = "button"  class="btn btn-dark" style="display: none;" >
-		<center><button onclick="checkAnswer()">Submit</button></center>
+		<center><button id = "checkAnswer"onclick="checkAnswer()">Submit</button></center>
+	</div>
+
+	<div id = "get_answer" class=" btn btn-dark" style="display: none;" >
+		<center><button id = "getAnswer"onclick="getAnswer()" >Get Answers</button></center>
 	</div>
 <!--	<script src="./script.js"></script>-->
 </body>

@@ -1,11 +1,35 @@
 
+function checkPOSAnswer(sentence)
+{
+
+var pos = require('pos');
+var words = new pos.Lexer().lex(sentence);
+var tagger = new pos.Tagger();
+var taggedWords = tagger.tag(words);
+tags = "";
+for (i in taggedWords) {
+    var taggedWord = taggedWords[i];
+    var word = taggedWord[0];
+    var tag = taggedWord[1];
+    tags += tag + " ";
+
+}
+return tags;
+}
+window.checkPOSAnswer  = checkPOSAnswer;
+
+
 /*ENGLISH CORPUS*/
-english = ["The child liked the chocolate","She was stopped by the bravest knight",
+window.english = ["The child liked the chocolate","She was stopped by the bravest knight",
 "Mary baked a cake for his birthday","She decorated the cake carefully","Mary wore a dress with polka dots"]
 
 /*HINDI CORPUS*/
-hindi = ["राम ने सीता के लिए फल तोड़ा।","छोटे बच्चे पाठशाला जल्दी आयेंगे।"
+window.hindi = ["राम ने सीता के लिए फल तोड़ा।","छोटे बच्चे पाठशाला जल्दी आयेंगे।"
 ,"मेहनत का फल मीठा होता है।","वाह! वह खूबसूरत है।","पेड़ से पत्ते गिर गए।"]
+
+window.hindiAnswers = ["Noun Postposition Noun Postposition Postposition Noun Verb","Adjective Noun Noun Adverb Verb",
+"Noun Postposition Noun Adjective Verb Verb","Interjection Pronoun Adjective Verb",
+"Noun Postposition Noun Verb Verb"]
 
 /*----------------------------SELECT LANGUAGE ------------------------------------------------
 ----------------------------------------------------------------------------------------------*/
@@ -39,6 +63,7 @@ function intialize()
 	$("#msg").css("display","none");
 	$("#table").css("display","none");
 	$("#button").css("display","none");
+	$('#get_answer').css("display","none");
 }
 /*Intialize sentence dropdown*/
 window.intialize = intialize;
@@ -53,12 +78,15 @@ function dropdownInitialize()
 	$("#msg").css("display","none");
 	$("#table").css("display","none");
 	$("#button").css("display","none");
+	$('#get_answer').css("display","none");
 }
 let sentence;
 /*GET SENTENCE*/
 let sentenceID;
 let tags;
 window.dropdownInitialize = dropdownInitialize;
+window.tags = tags;
+window.sentenceID = sentenceID;
 function getSentence(value)
 {
 	if(value == "null")
@@ -153,8 +181,16 @@ window.createTable = createTable;
 
 function getTag(sentence)
 {
-	tags = checkPOSAnswer(sentence);
+	if(language == english)
+	{
+		tags = checkPOSAnswer(sentence);
 	console.log(tags);
+}
+	else
+
+	{
+		tags = hindiAnswers[sentenceID];
+	}
 }
 
 /*----------------ENGLISH DROPDOWN -----------------------------------------
@@ -254,6 +290,71 @@ function createDropDownHindi(cell,ind)
 }
 window.createDropDownHindi = createDropDownHindi;
 
+
+
+
+let toggle = "getAnswer";
+function getAnswer()
+{
+	t = document.getElementById('table-id');
+if(toggle == "getAnswer")
+{
+	
+			
+			
+	$("#getAnswer").html("Hide Answers");
+	for(i = 0;i<sentence.length;i++)
+	{	id = t.getElementsByTagName('tr')[i];
+		cells = id.getElementsByTagName('td')[3];
+		if(language == english)
+		text = document.createTextNode(getPOS(tags[i]));
+		else
+		text = document.createTextNode((tags[i]));
+		cells.appendChild(text);
+	}
+
+	toggle = "hideAnswer";
+}
+else
+{
+	$("#getAnswer").html("Get Answers");
+	toggle = "getAnswer";
+	for(i = 0;i<sentence.length;i++)
+	{
+		id = t.getElementsByTagName('tr')[i];
+		cells = id.getElementsByTagName('td')[3];
+		cells.innerHTML = "";
+			}
+}
+}
+
+window.getAnswer = getAnswer;
+
+function getPOS(tag)
+{
+if(tag.includes("NN"))
+	return "Noun";
+else if(tag.includes("PR"))
+	return "Pronoun";
+else if(tag.includes("VB"))
+	return "Verb";
+else if(tag.includes("JJ"))
+	return "Adjective";
+else if(tag.includes("RB"))
+	return "Adverb";
+else if(tag.includes("UH"))
+	return "Interjection";
+else if(tag.includes("IN"))
+	return "Preposition";
+else if(tag.includes("DT"))
+	return "Determiner";
+else if(tag.includes("CC"))
+	return "Conjuction";
+
+}
+window.getPOS = getPOS;
+
+
 function checkAnswer()
 {
 	
@@ -267,15 +368,36 @@ function checkAnswer()
 			cells = id.getElementsByTagName('td')[1];
 			select = cells.firstChild;
 			strUser = select.options[select.selectedIndex].value;
+			text = select.options[select.selectedIndex].text;
 			img = document.createElement("img");
 			img.width = "30";
 			img.height = "30";
-			if(tags[i].includes(strUser))
+			if(language  == english)
 			{
-				img.src = "right.png";
+				if(tags[i].includes(strUser))
+				{
+
+					img.src = "right.png";
+				}
+				else
+					{
+						img.src = "wrong.png";
+						$('#get_answer').css("display","inline");
+					}
 			}
-			else
-				img.src = "wrong.png";
+		    else
+		    {
+		    	if(tags[i].includes(text))
+				{
+
+					img.src = "right.png";
+				}
+				else
+					{
+						img.src = "wrong.png";
+						$('#get_answer').css("display","inline");
+					}
+		    }
 			cells = id.getElementsByTagName('td')[2];
 			cells.appendChild(img);
 
