@@ -11,6 +11,7 @@ hindi = ["राम ने सीता के लिए फल तोड़ा।"
 ----------------------------------------------------------------------------------------------*/
 let language;
 
+
 function getLanguage(lang)
 {
 	intialize();
@@ -229,3 +230,4 @@ function createDropDownHindi(cell,ind)
 	select.appendChild(option8);
 	cell.appendChild(select);
 }
+
