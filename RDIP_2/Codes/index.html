@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content= "width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">	
+	<link rel="stylesheet" href="./style.css">	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript"  src="../Libraries/require.js"></script>
+	<script src="./bundle.js"></script>
+	<title>Computational Linguistics Lab</title>
+</head>
+<body>
+	<div class="heading" id = "experiment-heading">EXPERIMENT -3 : Tagging Parts of Speech(CL - 3)</div>
+	<div id = "selectLanguage" style="text-align: center;">
+		<select name="lang" autocomplete="off" onchange="getLanguage(this.value)"> 
+			<option value="null">---Select Language---</option>
+			<option value="english">English</option>
+			<option value="hindi">Hindi</option>
+		</select>
+	</div>
+	<div  align=" center" style="margin-top: 20px">
+		<div id = "langDropdown"style="display: none; ">
+			
+			<select name="sentence" autocomplete="off" onchange="getSentence(this.value)">
+			<option value="null" selected>---Select Sentence---</option>
+			<option value = "1" id = "op1"></option>
+			<option value = "2" id  = "op2"></option>
+			<option value = "3" id = "op3"></option>
+			<option value = "4" id = "op4"></option>
+			<option value = "5" id = "op5"></option>
+			</select>
+			
+		</div>
+	</div>
+	<div align = "center"  style="margin-top: 20px">
+		<div style='text-align:center;color:#0000FF;display: none;' id = "msg">
+			<i>Select the POS tag for corresponding words</i>
+		</div>
+	</div>
+	<div id = "table" align="center" style="display: none">
+	</div>
+	<div id = "button"  class="btn btn-dark" style="display: none;" >
+		<center><button id = "checkAnswer"onclick="checkAnswer()">Submit</button></center>
+	</div>
+
+	<div id = "get_answer" class=" btn btn-dark" style="display: none;" >
+		<center><button id = "getAnswer"onclick="getAnswer()" >Get Answers</button></center>
+	</div>
+<!--	<script src="./script.js"></script>-->
+</body>
+</html>
