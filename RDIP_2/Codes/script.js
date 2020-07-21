@@ -10,7 +10,7 @@ hindi = ["राम ने सीता के लिए फल तोड़ा।"
 /*----------------------------SELECT LANGUAGE ------------------------------------------------
 ----------------------------------------------------------------------------------------------*/
 let language;
-
+window.language = language;
 
 function getLanguage(lang)
 {
@@ -32,6 +32,7 @@ function getLanguage(lang)
 
 	}
 }
+window.getLanguage = getLanguage;
 function intialize()
 {
 	$("#langDropdown").css("display","none");
@@ -40,7 +41,7 @@ function intialize()
 	$("#button").css("display","none");
 }
 /*Intialize sentence dropdown*/
-
+window.intialize = intialize;
 function dropdownInitialize()
 {
 	len = language.length;
@@ -55,6 +56,9 @@ function dropdownInitialize()
 }
 let sentence;
 /*GET SENTENCE*/
+let sentenceID;
+let tags;
+window.dropdownInitialize = dropdownInitialize;
 function getSentence(value)
 {
 	if(value == "null")
@@ -71,8 +75,13 @@ function getSentence(value)
 	parent.removeChild(parent.lastChild);
 	createTable(sentence);
 	$("#button").css("display","inline");
+	getTag(sentence);
 	}
 }
+window.getSentence = getSentence;
+window.sentence = sentence;
+window.sentenceID = sentenceID;
+window.tags = tags;
 /*------------------------------TABLE CREATION---------------------------------------------------
 -------------------------------------------------------------------------------------------------*/
 
@@ -84,6 +93,7 @@ parent = document.getElementById("table");
 var tbl = document.createElement("table");
 tbl.classList.add("table");
 tbl.classList.add("table-bordered");
+tbl.id = "table-id";
 tbl.style.width = "300px";
 var tblBody = document.createElement("tbody");
 
@@ -134,6 +144,17 @@ var tblBody = document.createElement("tbody");
   parent.appendChild(tbl);
   tbl.setAttribute("border", "2");
 
+}
+window.createTable = createTable;
+
+
+/*--------------GET TAGS FROM POS TAGGER-----------------------------------
+---------------------------------------------------------------------------*/
+
+function getTag(sentence)
+{
+	tags = checkPOSAnswer(sentence);
+	console.log(tags);
 }
 
 /*----------------ENGLISH DROPDOWN -----------------------------------------
@@ -186,6 +207,7 @@ function createDropDownEnglish(cell,ind)
 	cell.appendChild(select);
 }
 
+window.createDropDownEnglish = createDropDownEnglish;
 /*----------------HINDI DROPDOWN -----------------------------------------
 ----------------------------------------------------------------------------*/
 function createDropDownHindi(cell,ind)
@@ -200,7 +222,7 @@ function createDropDownHindi(cell,ind)
 	option1.innerHTML= "Noun";
 
 	var option2 = document.createElement("option");
-	option2.value="WP";
+	option2.value="PR";
 	option2.innerHTML= "Pronoun";
 	var option3 = document.createElement("option");
 	option3.value="VB";
@@ -230,4 +252,34 @@ function createDropDownHindi(cell,ind)
 	select.appendChild(option8);
 	cell.appendChild(select);
 }
+window.createDropDownHindi = createDropDownHindi;
 
+function checkAnswer()
+{
+	
+	tags = tags.split(" ");
+	t = document.getElementById('table-id');
+	sentence = sentence.split(" ");
+	len = sentence.length;
+	for(i = 0;i<len;i++)
+		{
+			id = t.getElementsByTagName('tr')[i];
+			cells = id.getElementsByTagName('td')[1];
+			select = cells.firstChild;
+			strUser = select.options[select.selectedIndex].value;
+			img = document.createElement("img");
+			img.width = "30";
+			img.height = "30";
+			if(tags[i].includes(strUser))
+			{
+				img.src = "right.png";
+			}
+			else
+				img.src = "wrong.png";
+			cells = id.getElementsByTagName('td')[2];
+			cells.appendChild(img);
+
+		}
+
+}
+window.checkAnswer = checkAnswer;
